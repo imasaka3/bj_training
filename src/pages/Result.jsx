@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link, Navigate } from 'react-router-dom';
 import { saveResult } from '../utils/storage';
-import { CheckCircle, XCircle, Home, RotateCcw, Clock } from 'lucide-react';
+import { CheckCircle, XCircle, Home, RotateCcw, Clock, User, Cpu } from 'lucide-react';
 
 const Result = () => {
     const location = useLocation();
@@ -31,6 +31,10 @@ const Result = () => {
     const totalTime = results.reduce((acc, curr) => acc + curr.timeTaken, 0);
     const correctCount = results.filter(r => r.isCorrect).length;
     const score = Math.round((correctCount / results.length) * 100);
+    
+    // Get final chip counts if available
+    const lastResult = results[results.length - 1];
+    const hasFinalChips = lastResult && 'playerChipsAfter' in lastResult && 'cpuChipsAfter' in lastResult;
 
     return (
         <div className="space-y-6">
@@ -66,6 +70,31 @@ const Result = () => {
                     </Link>
                 </div>
             </div>
+
+            {/* Final Chip Counts - Only shown if CPU auto-bet feature was used */}
+            {hasFinalChips && (
+                <div className="bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-700">
+                    <h3 className="text-slate-400 uppercase tracking-wider font-semibold mb-4 text-center text-sm">Final Chip Counts</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-slate-900/50 rounded-xl p-4 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <User className="w-4 h-4 text-blue-400" />
+                                <span className="text-xs text-slate-400 uppercase font-semibold">Player</span>
+                            </div>
+                            <div className="text-3xl font-bold text-white">{lastResult.playerChipsAfter}</div>
+                            <div className="text-xs text-slate-500 mt-1">chips</div>
+                        </div>
+                        <div className="bg-slate-900/50 rounded-xl p-4 text-center">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <Cpu className="w-4 h-4 text-purple-400" />
+                                <span className="text-xs text-slate-400 uppercase font-semibold">CPU</span>
+                            </div>
+                            <div className="text-3xl font-bold text-white">{lastResult.cpuChipsAfter}</div>
+                            <div className="text-xs text-slate-500 mt-1">chips</div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 overflow-hidden">
                 <div className="p-4 bg-slate-900/50 border-b border-slate-700 font-semibold text-slate-300">
