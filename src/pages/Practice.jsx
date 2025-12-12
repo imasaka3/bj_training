@@ -71,39 +71,39 @@ const Practice = () => {
     const progress = ((currentIndex) / 10) * 100;
 
     return (
-        <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto landscape:max-w-none">
             {/* Progress Bar */}
-            <div className="w-full bg-slate-800 h-2 rounded-full mb-6 overflow-hidden">
+            <div className="w-full bg-slate-800 h-2 landscape:h-1.5 rounded-full mb-6 landscape:mb-3 overflow-hidden">
                 <div
                     className="bg-emerald-500 h-full transition-all duration-300 ease-out"
                     style={{ width: `${progress}%` }}
                 />
             </div>
 
-            <div className="bg-slate-800 rounded-2xl p-8 shadow-xl border border-slate-700 relative overflow-hidden">
+            <div className="bg-slate-800 rounded-2xl landscape:rounded-xl p-8 landscape:p-4 shadow-xl border border-slate-700 relative overflow-hidden">
                 {/* Feedback Overlay */}
                 {feedback && (
                     <div className={`absolute inset-0 flex items-center justify-center z-10 ${feedback === 'correct' ? 'bg-emerald-500/90' : 'bg-red-500/90'
                         } backdrop-blur-sm transition-all duration-300`}>
                         {feedback === 'correct' ? (
-                            <CheckCircle className="w-24 h-24 text-white animate-bounce" />
+                            <CheckCircle className="w-24 h-24 landscape:w-16 landscape:h-16 text-white animate-bounce" />
                         ) : (
-                            <XCircle className="w-24 h-24 text-white animate-pulse" />
+                            <XCircle className="w-24 h-24 landscape:w-16 landscape:h-16 text-white animate-pulse" />
                         )}
                     </div>
                 )}
 
-                <div className="text-center mb-8">
-                    <h2 className="text-slate-400 text-sm uppercase tracking-wider font-semibold mb-2">
+                <div className="text-center mb-8 landscape:mb-4">
+                    <h2 className="text-slate-400 text-sm landscape:text-xs uppercase tracking-wider font-semibold mb-2 landscape:mb-1">
                         Question {currentIndex + 1} / 10
                     </h2>
-                    <div className="text-5xl font-bold text-white mb-2">
+                    <div className="text-5xl landscape:text-4xl font-bold text-white mb-2 landscape:mb-1">
                         {currentBet}
                     </div>
-                    <p className="text-slate-400 text-sm">Calculate 1.5x payout</p>
+                    <p className="text-slate-400 text-sm landscape:text-xs">Calculate 1.5x payout</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 landscape:space-y-3">
                     <div>
                         <input
                             ref={inputRef}
@@ -111,7 +111,7 @@ const Practice = () => {
                             step="0.1"
                             value={userAnswer}
                             onChange={(e) => setUserAnswer(e.target.value)}
-                            className="w-full bg-slate-900 border-2 border-slate-700 focus:border-emerald-500 rounded-xl px-4 py-4 text-3xl text-center font-bold text-white outline-none transition-colors placeholder:text-slate-700"
+                            className="w-full bg-slate-900 border-2 border-slate-700 focus:border-emerald-500 rounded-xl landscape:rounded-lg px-4 landscape:px-3 py-4 landscape:py-3 text-3xl landscape:text-2xl text-center font-bold text-white outline-none transition-colors placeholder:text-slate-700"
                             placeholder="?"
                             disabled={!!feedback}
                         />
@@ -120,7 +120,7 @@ const Practice = () => {
                     <button
                         type="submit"
                         disabled={!userAnswer || !!feedback}
-                        className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 group"
+                        className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-white font-bold py-4 landscape:py-3 rounded-xl landscape:rounded-lg transition-all flex items-center justify-center gap-2 group"
                     >
                         <span>Submit Answer</span>
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
